@@ -6,17 +6,14 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["UserManagement/UserManagement.csproj", "UserManagement/"]
-COPY ["AuthorizationService/AuthorizationService.csproj", "AuthorizationService/"]
-COPY ["Database/Database.csproj", "Database/"]
-COPY ["SharedLib/SharedLib.csproj", "SharedLib/"]
-RUN dotnet restore "UserManagement/UserManagement.csproj"
+COPY ["UserManagement.csproj", "."]
+RUN dotnet restore "./UserManagement.csproj"
 COPY . .
-WORKDIR "/src/UserManagement"
+WORKDIR "/src/."
 RUN dotnet build "UserManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "UserManagement.csproj" -c Release -o /app/publish
+RUN dotnet publish "UserManagement.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
