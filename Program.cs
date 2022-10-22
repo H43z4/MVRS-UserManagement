@@ -1,6 +1,7 @@
 using AuthorizationService.JwtStatelessToken;
 using Database;
 using Microsoft.AspNetCore.Mvc;
+using SharedLib.APIs;
 using SharedLib.Interfaces;
 using System.Net;
 using UserManagement.Services;
