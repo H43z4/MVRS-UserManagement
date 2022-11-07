@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models.DatabaseModels.Authentication;
 using Models.ViewModels.Identity;
@@ -195,6 +196,10 @@ namespace UserManagement.Controllers
         {
             this.userManagementService.VwUser = this.User;
             userObj.UserTypeId = 1;
+            
+            var passwordHasher = new PasswordHasher<User>();
+            userObj.Password = passwordHasher.HashPassword(new Models.DatabaseModels.Authentication.User(), userObj.Password);
+
             var ds = await this.userManagementService.CreateUser(userObj);
 
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows[0][0].ToString() == "0")
