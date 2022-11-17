@@ -42,7 +42,10 @@ namespace UserManagement.Controllers
             {
                 Districts = ds.Tables[0],
                 SiteOffices = ds.Tables[1],
-                Roles = ds.Tables[2]
+                Roles = ds.Tables[2],
+                tehsils = ds.Tables[3],
+                addressArea = ds.Tables[4],
+                PostOffice = ds.Tables[5]
             };
 
             return ApiResponse.GetApiResponse(ApiResponseType.SUCCESS, data, Constants.RECORD_FOUND_MESSAGE);
